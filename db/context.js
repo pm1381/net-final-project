@@ -3,7 +3,7 @@ var mysql = require('mysql')
 // MySQL connection configuration
 var connection = mysql.createConnection({
     host: 'localhost',
-    port: 5432,
+    port: 3306,
     user: 'root',
     database: 'money_management'
 });
