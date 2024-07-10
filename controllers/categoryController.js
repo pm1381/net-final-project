@@ -17,7 +17,7 @@ exports.add = asyncHandler(async (req, res, next) => {
     });
 
     if (existingCategory) {
-      return res.status(400).json({ error: 'Category with this title already exists' });
+      return res.status(400).json({ error: 'یک دسته بندی با این عنوان از پیش ساخته شده است' });
     }
 
     // Insert the new category
