@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const connection = require('../db/context');
+const e = require("express");
 
 exports.add = asyncHandler(async (req, res, next) => {
   try {
@@ -32,6 +33,24 @@ exports.add = asyncHandler(async (req, res, next) => {
     next(err);
   }
 });
+
+exports.manage = asyncHandler(async (req, res, next) => {
+  const categoryId = req.params.id
+  // Check if the category exists
+  const existingCategory = await new Promise((resolve, reject) => {
+    connection.query('SELECT id, title FROM category WHERE id = ?', [id], (err, results) => {
+      if (err) {
+        throw err
+      } else {
+        if (clothing.length <= 0) {
+          return res.status(404).json({ error: 'no category found' });
+        }
+        var categoryTitle = results[0].title
+        res.json({ message: 'category found successfully', status: "1", id: categoryId, title: categoryTitle});
+      }
+    });
+  });
+})
 
 exports.edit = asyncHandler(async (req, res, next) => {
   try {

@@ -10,6 +10,7 @@ router.put('/edit-category/:id', category_controller.edit)
 router.delete('/delete-category/:id', category_controller.delete)
 router.post('/create-category', category_controller.add)
 router.get('/list-category', category_controller.watch)
+router.get('/manage-category/:id', category_controller.manage)
 
 router.post('/assign-category/:catId/transaction/:transId', pfm_controller.assign_category_to_transaction)
 router.put('/edit-transaction/:transId/category/:catId', pfm_controller.edit_category)
