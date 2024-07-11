@@ -35,23 +35,24 @@ exports.add = asyncHandler(async (req, res, next) => {
 });
 
 exports.manage = asyncHandler(async (req, res, next) => {
-  const categoryId = req.params.id
+  const categoryId = req.params.id;
+
   // Check if the category exists
   const existingCategory = await new Promise((resolve, reject) => {
-    connection.query('SELECT id, title FROM category WHERE id = ?', [id], (err, results) => {
+    connection.query('SELECT id, title FROM category WHERE id = ?', [categoryId], (err, results) => {
       if (err) {
-        throw err
+        reject(err);
       } else {
-        if (clothing.length <= 0) {
-          return res.status(404).json({ error: 'no category found' });
+        if (results.length <= 0) {
+          res.status(404).json({ error: 'no category found' });
+        } else {
+          const categoryTitle = results[0].title;
+          res.json({ message: 'category found successfully', status: "1", id: categoryId, title: categoryTitle });
         }
-        var categoryTitle = results[0].title
-        res.json({ message: 'category found successfully', status: "1", id: categoryId, title: categoryTitle});
       }
     });
   });
-})
-
+});
 exports.edit = asyncHandler(async (req, res, next) => {
   try {
     const { id } = req.params;
